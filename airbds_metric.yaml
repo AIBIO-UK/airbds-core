@@ -1,0 +1,276 @@
+# =============================================================================
+# AIRBDS AI-Readiness Dataset Scoring Metric — v0.5
+# AI-Ready Bioscience Datasets Working Group (AIRBDS), AIBIO-UK
+# https://aibio.ac.uk/about/working-groups/airbds/
+# License: CC-BY-4.0
+# =============================================================================
+#
+# *** GENERATED FILE — DO NOT EDIT BY HAND. ***
+#
+# This file is generated from the AIRBDS scoring Google Sheet by the metric
+# build script (see metric/README.md). Any manual edit will be lost the next
+# time the file is regenerated. To change this file's contents — or the way it
+# is generated — edit the sheet (and/or that script) and re-run it.
+# Never edit this file directly.
+# =============================================================================
+#
+# Question definitions for a given metric version. For a version the scope and
+# grade of each question are fixed, so they are defined here as the source of
+# truth rather than trusted from uploaded assessments.
+#
+# This is a language-neutral data file: the question definitions can be read by
+# any tool (the review processor, the auto-airbds web frontend, etc.). The
+# `guidance` field explains how each question should be answered; it is guidance
+# for humans/LLMs.
+
+# Source: https://docs.google.com/spreadsheets/d/13w-MiUQc2sLzRFqRQD_YT6BisE3Orv5Oj3i0YBw7r_M/edit
+# Source content sha256: b831706c4a13ac8e11a5f6b7c47ff50b86bc5118ecfe9e53c04ed409098ade90
+
+metric_name: "AIRBDS AI-Readiness Dataset Scoring Metric"
+schema_version: "0.5"
+release_date: "2026"
+license: "CC-BY-4.0"
+repository: "https://github.com/AIBIO-UK/airbds-core"
+contact: "info@aibio.ac.uk"
+
+description: >
+  A structured checklist for evaluating the AI-readiness of bioscience datasets.
+  Questions are grouped into four scopes (Infrastructure, Metadata, Content, Ethics)
+  and graded as Optional, Important, or Critical to produce a composite score
+  and grade (Caution / Bronze / Silver / Gold).
+
+# Generic reviewer instructions, captured verbatim from the source sheet's
+# Instructions tab. This is guidance for whoever assesses a dataset (human or
+# AI agent) — how to interpret the metric and what is in/out of scope. It is
+# informational and does not affect scoring.
+instructions: |
+  AIRBDS Dataset Metric v0.5
+
+  The AIRBDS metric is designed to assess the AI-readiness of a dataset. It consists of a series of binary questions, organised into four Scopes for convenience of assessment. Answer each question 'Yes' or 'No'. Questions are weighted, with three categories: Critical, Important, or Optional. When all questions are answered, the dataset will be given a final grade: Gold, Silver, Bronze, or Caution. Critical questions are the main determinant of the overall grade.
+
+  The metric is designed to be agnostic to domain, modality, and application. The general philosophy is that a dataset should be accompanied by enough information to allow a researcher to assess whether and how they could use it for their own purposes. In some cases, domain-specific knowledge will be helpful in making assessments – for example, in determining domain appropriateness.
+
+  Metadata must be collocated with the data – visible on the same repository page or packaged with the download. Ideally, it should be formatted and structured for clarity and efficiency. A journal article or supplementary file hosted elsewhere does not count as metadata for any question.
+
+  Datasets behind an access-controlled approval process, or held in a trusted research environment, are out of scope for this metric, due to the difficulty of producing accurate ratings.
+
+  Review the Notes field for guidance and examples for specific questions.
+
+# Full points awarded for a question when its answer is "Yes", keyed by the
+# question's grade. A "No" answer always scores 0. A question's score is
+# therefore fixed by its grade and answer, not taken from the assessment.
+grade_points:
+  Critical: 80
+  Important: 5
+  Optional: 2
+
+# Grading thresholds, highest grade first. A dataset earns the highest grade for
+# which every requirement holds: the proportion of "Yes" answers within each
+# grade category must be at least min_proportion_yes (compared with >=), and the
+# total score must be at least min_score. The final entry is the floor (all-zero
+# requirements). Editing these values re-grades without any code change.
+grading:
+  - name: Gold
+    description: "Passes all Critical and Important questions, plus at least 50% Optional"
+    min_proportion_yes: { Critical: 1.0, Important: 1.0, Optional: 0.5 }
+    min_score: 776
+  - name: Silver
+    description: "Passes all Critical plus at least 50% of Important questions (or equivalent)"
+    min_proportion_yes: { Critical: 1.0, Important: 0.5, Optional: 0.0 }
+    min_score: 745
+  - name: Bronze
+    description: "Passes most Critical questions (all but one)"
+    min_proportion_yes: { Critical: 0.8888888889, Important: 0.0, Optional: 0.0 }
+    min_score: 640
+  - name: Caution
+    description: "May have serious issues"
+    min_proportion_yes: { Critical: 0.0, Important: 0.0, Optional: 0.0 }
+    min_score: 0
+
+# Top-level groupings of the questions.
+scopes:
+  - id: Infrastructure
+    sort_order: 1
+    description: "Questions about how the dataset is hosted, accessed, and identified."
+  - id: Metadata
+    sort_order: 2
+    description: "Questions about the dataset's descriptive and contextual metadata."
+  - id: Content
+    sort_order: 3
+    description: "Questions about the quality, format, and consistency of the data itself."
+  - id: Ethics
+    sort_order: 4
+    description: "Questions about ethical, privacy, and security considerations. Applicable primarily to datasets containing human or animal subject data."
+
+# Every question is a boolean "Yes"/"No". Ethics questions carry a
+# not_applicable_default of "Yes" — they are marked "Yes" for datasets with no
+# human or animal subject data.
+questions:
+  ABC-01:
+    scope: Infrastructure
+    grade: Important
+    question: "Can the dataset be accessed in its entirety?"
+    guidance: "Every entry in the dataset should be accessible via direct download, API, or in a cloud container. This metric is not applicable to datasets behind access controls with an approval process, or in trusted research environments."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-02:
+    scope: Infrastructure
+    grade: Important
+    question: "Is metadata provided along with the data?"
+    guidance: "Metadata should be colocated with the data. This means it should be visible on the same repository page, or packaged with the download. Journal articles are not considered metadata."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-03:
+    scope: Infrastructure
+    grade: Optional
+    question: "Does the dataset include a mechanism for verifying its integrity?"
+    guidance: "For a direct download or cloud container, mark yes if each file or download has a checksum or cryptographic hash (e.g. MD5, SHA-256). If the dataset is served via an API over HTTPS/TLS, mark this \"Yes\" (the transit protocol has built-in integrity checks covering delivery)"
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-04:
+    scope: Infrastructure
+    grade: Critical
+    question: "Is the dataset released with a clear licence or terms of use?"
+    guidance: "Infrastructures may offer no guarantees about the licensing of the data they host. See NIH Policies as an example. Datasets with an explicit licence are strongly preferred."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-05:
+    scope: Infrastructure
+    grade: Important
+    question: "Is the licence standardised and machine-readable?"
+    guidance: "e.g. Creative Commons, MIT. If there is no clear licence, mark this question \"No\""
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-06:
+    scope: Infrastructure
+    grade: Important
+    question: "Is the dataset deposited in a FAIR-compliant archive?"
+    guidance: "Mark \"Yes\" if the repository is either (a) listed as FAIR-aligned in a recognised registry (e.g. FAIRsharing.org), or (b) an established domain repository that implements FAIR (e.g. GEO, PRIDE, PDB, MetaboLights), or (c) a FAIR-aligned general repository such as Zenodo, FigShare, or Dryad. Mark \"No\" for repositories that do not issue persistent identifiers and expose machine-readable metadata, e.g. HuggingFace, Kaggle."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-07:
+    scope: Infrastructure
+    grade: Important
+    question: "Is the dataset deposited in a domain-appropriate infrastructure?"
+    guidance: "A domain-appropriate archive is preferred for findability, access to specific tooling, and consistent implementation of standards. The alternative is a general purpose archive, e.g. Zenodo, Data Dryad."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-08:
+    scope: Infrastructure
+    grade: Optional
+    question: "Is the dataset hosted in a searchable infrastructure?"
+    guidance: "Infrastructures vary in the search functionality they offer, but it should be possible to search for a dataset based on metadata properties as well as looking it up directly via an ID or accession."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-09:
+    scope: Infrastructure
+    grade: Critical
+    question: "Does the dataset have a globally unique, persistent identifier?"
+    guidance: "A URL does not count as a persistent identifier. A DOI does qualify. An accession assigned by a repository is acceptable, as long as the combination of repository+accession uniquely identifies the dataset. While FAIR-compliant archives provide UIDs, not all archives do (e.g. Kaggle)."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-10:
+    scope: Infrastructure
+    grade: Optional
+    question: "If the dataset is subject to updates, does it use a version control system?"
+    guidance: "Mark \"Yes\" if the dataset uses version control, e.g. versioned releases with distinct version identifiers or version-specific DOIs. If there is no likely indication that the dataset is subject to updates, mark \"Yes\". Mark \"No\" only if the dataset is subject to updates but provides no versioning."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-11:
+    scope: Metadata
+    grade: Critical
+    question: "Does the dataset use a machine-readable, domain-appropriate metadata standard?"
+    guidance: "Metadata should include a domain-appropriate set of information about the dataset, following a standard. For example, Minimum Information Standards (e.g. MIAME, MIAPE). Variable names should be self-explanatory."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-12:
+    scope: Metadata
+    grade: Critical
+    question: "Does the downloadable metadata include the identifier of the dataset?"
+    guidance: "Mark \"Yes\" if the dataset has a unique identifier that appears in the metadata that travels with the data – i.e. in a downloadable or packaged metadata record, embedded in the data files themselves, or included in the API response – so that a detached copy of the dataset remains identifiable. An identifier shown only on the repository landing page, and not included in any downloadable metadata or in the data itself, is \"No\". A URL does not qualify as a unique identifier."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-13:
+    scope: Metadata
+    grade: Optional
+    question: "Does the metadata document the modalities used?"
+    guidance: "Mark \"Yes\" only if the metadata explicitly describes the modalities, e.g. \"RNA-seq\", \"mass spectrum\", \"microscopy image\". A modality merely implied by file format, repository, or the accompanying article does not count. For multimodal datasets, every modality present must be documented."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-14:
+    scope: Metadata
+    grade: Important
+    question: "Are transformation and preprocessing steps documented well enough to reproduce them?"
+    guidance: "Mark \"Yes\" if the data is raw and unprocessed and this is clearly stated, or if the steps are documented in enough detail to reproduce them, either as runnable code in a repository, or a step-by-step written description including the tools and parameters used. A high-level mention without specifics (e.g. \"data were normalised\"), or no mention at all, should be marked \"No\"."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-15:
+    scope: Metadata
+    grade: Critical
+    question: "Is the provenance of the dataset clearly documented?"
+    guidance: "Provenance means the origin and history of the data. Check for: (1) who generated or collected it; (2) how it was produced (measured, simulated, or derived) and processed. Mark \"Yes\" if both are documented. Mark \"No\" if the origin or production method is absent."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-16:
+    scope: Metadata
+    grade: Important
+    question: "Is the dataset's sampling strategy or inclusion criteria documented in the metadata?"
+    guidance: "A user should be able to assess potential biases in the dataset. Mark \"Yes\" if the metadata describes both (1) the population or source sampled from (e.g. the organisms, tissues, cell lines, sites, molecules, or records), and (2) how the specific samples were selected from it (e.g. selection criteria, randomisation, or exhaustive collection). A bare statement of what the data are, without describing how they were selected, is \"No\". A description found only in an accompanying research article does not count. Mark \"No\" if the sampling strategy is not described in the metadata."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-17:
+    scope: Content
+    grade: Important
+    question: "Is the dataset free of duplicate records?"
+    guidance: "Repeated records or files is a common mistake that damages the quality of a dataset."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-18:
+    scope: Content
+    grade: Important
+    question: "Does the dataset include all expected records and content?"
+    guidance: "The expected content is defined by the metadata. If the dataset has no metadata, or the metadata does not specify what files and records should be expected, mark this question \"No\"."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-19:
+    scope: Content
+    grade: Critical
+    question: "Are units, data types and parameter names consistent between entries?"
+    guidance: "Data types and vocabularies should be used consistently, even if a dataset combines data from multiple sources."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-20:
+    scope: Content
+    grade: Important
+    question: "Does the dataset follow domain standards with respect to units, data types, parameter names?"
+    guidance: "This could be indicated by a schema or domain-specific minimum information standard."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-21:
+    scope: Content
+    grade: Optional
+    question: "Does the data use an appropriate file format?"
+    guidance: "Particularly with respect to efficiency and suitability. The appropriate format is specific to the modality, domain, and intended use."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-22:
+    scope: Content
+    grade: Optional
+    question: "Is the data available in at least one open, non-proprietary format?"
+    guidance: "It should be possible to read a dataset and write it to a different format without the use of proprietary software."
+    answer: { type: boolean, options: ["Yes", "No"] }
+  ABC-23:
+    scope: Ethics
+    grade: Critical
+    question: "If the dataset contains data from animal or human subjects, is an ethical assessment that covers acquisition present in the metadata or a linked clinical trial record?"
+    guidance: "If the dataset contains no human or animal data, mark \"Yes\". For datasets with human or animal subjects, mark \"Yes\" if the metadata (or a clearly linked, registered clinical-trial or ethics record) documents that the data acquisition underwent ethical review from an ethics committee or IRB. A statement found only in an accompanying journal article does not count. Mark \"No\" if no such documentation is present."
+    answer: { type: boolean, options: ["Yes", "No"] }
+    not_applicable_default: "Yes"
+  ABC-24:
+    scope: Ethics
+    grade: Critical
+    question: "If the dataset contains data from human subjects, is data management with respect to privacy documented in the metadata or a linked clinical trial record?"
+    guidance: "If the dataset contains no human data, mark \"Yes\". For datasets with human subjects, mark \"Yes\" if the metadata (or a clearly linked, registered clinical-trial or ethics record) states the data's de-identification or privacy status – e.g. \"anonymised\", \"de-identified\", \"limited data set\", \"non-PHI\". Mark \"No\" if no de-identification or privacy-handling status is stated."
+    answer: { type: boolean, options: ["Yes", "No"] }
+    not_applicable_default: "Yes"
+  ABC-25:
+    scope: Ethics
+    grade: Critical
+    question: "If the dataset contains data from human subjects, is the legal basis for data collection and processing documented in the metadata or a linked clinical trial record?"
+    guidance: "Mark \"Yes\" if the metadata (or a clearly linked, registered clinical-trial or ethics record) documents the legal basis for collecting and processing the data – e.g. informed consent, or another lawful basis under the applicable regime such as GDPR or HIPAA. If the dataset contains no human data, mark the question \"Yes\". If there is no record of consent and no mention of legal basis, mark this question \"No\"."
+    answer: { type: boolean, options: ["Yes", "No"] }
+    not_applicable_default: "Yes"
+
+# =============================================================================
+# QUESTION SUMMARY
+# Total questions: 25
+# Infrastructure:  10  (ABC-01 – ABC-10)
+# Metadata:         6  (ABC-11 – ABC-16)
+# Content:          6  (ABC-17 – ABC-22)
+# Ethics:           3  (ABC-23 – ABC-25)
+#
+# Grade breakdown (all 25 questions):
+#   Critical:   9   × 80 pts = 720 pts maximum
+#   Important: 10   × 5  pts = 50  pts maximum
+#   Optional:   6   × 2  pts = 12  pts maximum
+#   TOTAL maximum (incl. Ethics): 782 pts
+# =============================================================================
