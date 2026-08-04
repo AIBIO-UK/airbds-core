@@ -2,7 +2,11 @@
 
 This directory contains skills that can be imported into AI assistants to conduct AIRBDS assessments. They conform to the [agentskills.io](https://agentskills.io) standard.
 
-There is currently one skill at [`skills/airbds-assessment-skill.zip`](https://github.com/AIBIO-UK/airbds-core/raw/main/skills/airbds-assessment-skill.zip), currently at version 0.8.0 and assessing against [AIRBDS metric](https://github.com/AIBIO-UK/airbds-core/blob/main/airbds_metric.yaml) v1.0.0. The zip itself is the skill containing all its components.
+<!-- The two version numbers below are stamped by the release scripts in
+     AIBIO-UK/airbds-dev; the comment markers are how they find them. Keep the
+     markers if you reword this sentence, or the next release will fail rather
+     than publish a stale version. -->
+There is currently one skill at [`skills/airbds-assessment-skill.zip`](https://github.com/AIBIO-UK/airbds-core/raw/main/skills/airbds-assessment-skill.zip), currently at version <!--skill-version-->0.8.0<!--/skill-version--> and assessing against [AIRBDS metric](https://github.com/AIBIO-UK/airbds-core/blob/main/airbds_metric.yaml) v<!--metric-version-->1.0.0<!--/metric-version-->. The zip itself is the skill containing all its components.
 
 ## Installation instructions
 
