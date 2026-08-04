@@ -1,5 +1,5 @@
 # =============================================================================
-# AIRBDS AI-Readiness Dataset Scoring Metric — v0.5
+# AIRBDS AI-Readiness Dataset Scoring Metric — v1.0.0
 # AI-Ready Bioscience Datasets Working Group (AIRBDS), AIBIO-UK
 # https://aibio.ac.uk/about/working-groups/airbds/
 # License: CC-BY-4.0
@@ -24,10 +24,10 @@
 # for humans/LLMs.
 
 # Source: https://docs.google.com/spreadsheets/d/13w-MiUQc2sLzRFqRQD_YT6BisE3Orv5Oj3i0YBw7r_M/edit
-# Source content sha256: b831706c4a13ac8e11a5f6b7c47ff50b86bc5118ecfe9e53c04ed409098ade90
+# Source content sha256: 54987a09312575b54502c45a84d35f2c1803ab0d1b4323d35f939dd2ffbd496c
 
 metric_name: "AIRBDS AI-Readiness Dataset Scoring Metric"
-schema_version: "0.5"
+schema_version: "1.0.0"
 release_date: "2026"
 license: "CC-BY-4.0"
 repository: "https://github.com/AIBIO-UK/airbds-core"
@@ -44,7 +44,7 @@ description: >
 # AI agent) — how to interpret the metric and what is in/out of scope. It is
 # informational and does not affect scoring.
 instructions: |
-  AIRBDS Dataset Metric v0.5
+  AIRBDS Dataset Metric v1.0.0
 
   The AIRBDS metric is designed to assess the AI-readiness of a dataset. It consists of a series of binary questions, organised into four Scopes for convenience of assessment. Answer each question 'Yes' or 'No'. Questions are weighted, with three categories: Critical, Important, or Optional. When all questions are answered, the dataset will be given a final grade: Gold, Silver, Bronze, or Caution. Critical questions are the main determinant of the overall grade.
 
@@ -71,7 +71,7 @@ grade_points:
 # requirements). Editing these values re-grades without any code change.
 grading:
   - name: Gold
-    description: "Passes all Critical and Important questions, plus at least 50% Optional"
+    description: "Passes all Critical and Important questions, plus at least 50% Optional (or equivalent)"
     min_proportion_yes: { Critical: 1.0, Important: 1.0, Optional: 0.5 }
     min_score: 776
   - name: Silver
