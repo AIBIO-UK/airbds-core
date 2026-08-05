@@ -1,4 +1,4 @@
-# AIRBDS Core — AI-Readiness Dataset Scoring Metric
+# AIRBDS Core: AI-Readiness Dataset Scoring Metric
 
 A structured, machine-readable checklist for evaluating how ready a bioscience
 dataset is for AI and machine-learning use.
@@ -7,6 +7,8 @@ Maintained by the AI-Ready Bioscience Datasets Working Group
 ([AIRBDS](https://aibio.ac.uk/about/working-groups/airbds/)), AIBIO-UK.
 
 **Current version: 1.0.0** — [`airbds_metric.json`](airbds_metric.json)
+
+See preprint article for more information: <a href="https://doi.org/10.5281/zenodo.21803891"><img width="191" height="20" alt="image" src="https://github.com/user-attachments/assets/5fb6c700-fa37-4f8a-b0c2-b494be59180e" /></a>
 
 ---
 
