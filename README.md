@@ -6,7 +6,7 @@ dataset is for AI and machine-learning use.
 Maintained by the AI-Ready Bioscience Datasets Working Group
 ([AIRBDS](https://aibio.ac.uk/about/working-groups/airbds/)), AIBIO-UK.
 
-**Current version: 1.0.1** — [`airbds_metric.json`](airbds_metric.json)
+**Current version: <!--metric-version-->1.0.1<!--/metric-version-->** — [`airbds_metric.json`](airbds_metric.json)
 
 See preprint article for more information: <a href="https://doi.org/10.5281/zenodo.21803891"><img width="191" height="20" alt="image" src="https://github.com/user-attachments/assets/5fb6c700-fa37-4f8a-b0c2-b494be59180e" /></a>
 
@@ -101,7 +101,7 @@ recorded against every question explaining the answer.
 The metric is released under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/).
 
 When citing, give the version from the file's `schema_version` field (currently
-`1.0.1`) so it is clear which question set was used.
+`<!--metric-version-->1.0.1<!--/metric-version-->`) so it is clear which question set was used.
 
 ## Contact
 
