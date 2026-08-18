@@ -1,14 +1,10 @@
 {
   "metric_name": "AIRBDS AI-Readiness Dataset Scoring Metric",
-  "schema_version": "1.0.0",
+  "schema_version": "1.0.1",
   "release_date": "2026",
   "license": "CC-BY-4.0",
   "repository": "https://github.com/AIBIO-UK/airbds-core",
   "contact": "info@aibio.ac.uk",
-  "source": {
-    "sheet_url": "https://docs.google.com/spreadsheets/d/1l9FVM09YkHAmy6XzqGiSPutKdJnk0WD-EwZE8GXu6TY/edit",
-    "content_sha256": "7c8b29e1ed93c17ac792966b779a1365a1600eb1c65c90d0246259ff38878e33"
-  },
   "description": "A structured checklist for evaluating the AI-readiness of bioscience datasets. Questions are grouped into four scopes (Infrastructure, Metadata, Content, Ethics) and graded as Optional, Important, or Critical to produce a composite score and grade (Caution / Bronze / Silver / Gold).\n",
   "instructions": "The AIRBDS metric is designed to assess the AI-readiness of a dataset. It consists of a series of binary questions, organised into four Scopes for convenience of assessment. Answer each question 'Yes' or 'No'. Questions are weighted, with three categories: Critical, Important, or Optional. When all questions are answered, the dataset will be given a final grade: Gold, Silver, Bronze, or Caution. Critical questions are the main determinant of the overall grade.\n\nThe metric is designed to be agnostic to domain, modality, and application. The general philosophy is that a dataset should be accompanied by enough information to allow a researcher to assess whether and how they could use it for their own purposes. In some cases, domain-specific knowledge will be helpful in making assessments – for example, in determining domain appropriateness.\n\nMetadata must be collocated with the data – visible on the same repository page or packaged with the download. Ideally, it should be formatted and structured for clarity and efficiency. A journal article or supplementary file hosted elsewhere does not count as metadata for any question.\n\nDatasets behind an access-controlled approval process, or held in a trusted research environment, are out of scope for this metric, due to the difficulty of producing accurate ratings.\n\nReview the Notes field for guidance and examples for specific questions.\n",
   "grade_points": {
@@ -19,42 +15,22 @@
   "grading": [
     {
       "name": "Gold",
-      "description": "Passes all Critical and Important questions, plus at least 50% Optional (or equivalent)",
-      "min_proportion_yes": {
-        "Critical": 1.0,
-        "Important": 1.0,
-        "Optional": 0.5
-      },
+      "description": "Passes all Critical and Important, plus at least 50% Optional (or equivalent)",
       "min_score": 776
     },
     {
       "name": "Silver",
-      "description": "Passes all Critical plus at least 50% of Important questions (or equivalent)",
-      "min_proportion_yes": {
-        "Critical": 1.0,
-        "Important": 0.5,
-        "Optional": 0.0
-      },
+      "description": "Passes all Critical plus at least 50% of Important (or equivalent including scores from Optional)",
       "min_score": 745
     },
     {
       "name": "Bronze",
       "description": "Passes most Critical questions (all but one)",
-      "min_proportion_yes": {
-        "Critical": 0.8888888889,
-        "Important": 0.0,
-        "Optional": 0.0
-      },
       "min_score": 640
     },
     {
       "name": "Caution",
       "description": "May have serious issues",
-      "min_proportion_yes": {
-        "Critical": 0.0,
-        "Important": 0.0,
-        "Optional": 0.0
-      },
       "min_score": 0
     }
   ],
