@@ -84,7 +84,7 @@ See [`skills/README.md`](skills/README.md) for installation and usage.
 
 ## Case studies
 
-Here you can view example assessments of four datasets against v1.0.0, chosen to
+Here you can view example assessments of four datasets against v<!--metric-version-->1.0.0<!--metric-version-->, chosen to
 span domains and outcomes. Each link opens the completed assessment, with a comment
 recorded against every question explaining the answer.
 
@@ -100,8 +100,7 @@ recorded against every question explaining the answer.
 
 The metric is released under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/).
 
-When citing, give the version from the file's `schema_version` field (currently
-`<!--metric-version-->1.0.1<!--/metric-version-->`) so it is clear which question set was used.
+When citing, give the version from the file's `schema_version` field (currently <!--metric-version-->1.0.1<!--/metric-version-->) so it is clear which question set was used.
 
 ## Contact
 
