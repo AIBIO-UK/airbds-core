@@ -1,5 +1,5 @@
 # =============================================================================
-# AIRBDS AI-Readiness Dataset Scoring Metric — v1.0.0
+# AIRBDS AI-Readiness Dataset Scoring Metric — v1.0.1
 # AI-Ready Bioscience Datasets Working Group (AIRBDS), AIBIO-UK
 # https://aibio.ac.uk/about/working-groups/airbds/
 # License: CC-BY-4.0
@@ -23,11 +23,11 @@
 # `guidance` field explains how each question should be answered; it is guidance
 # for humans/LLMs.
 
-# Source: https://docs.google.com/spreadsheets/d/13w-MiUQc2sLzRFqRQD_YT6BisE3Orv5Oj3i0YBw7r_M/edit
-# Source content sha256: 54987a09312575b54502c45a84d35f2c1803ab0d1b4323d35f939dd2ffbd496c
+# Source: https://docs.google.com/spreadsheets/d/1l9FVM09YkHAmy6XzqGiSPutKdJnk0WD-EwZE8GXu6TY/edit
+# Source content sha256: 52c2cfe074176d6774e3e435da01ae572355c9e314521e5798e4c57963e7df18
 
 metric_name: "AIRBDS AI-Readiness Dataset Scoring Metric"
-schema_version: "1.0.0"
+schema_version: "1.0.1"
 release_date: "2026"
 license: "CC-BY-4.0"
 repository: "https://github.com/AIBIO-UK/airbds-core"
@@ -44,8 +44,6 @@ description: >
 # AI agent) — how to interpret the metric and what is in/out of scope. It is
 # informational and does not affect scoring.
 instructions: |
-  AIRBDS Dataset Metric v1.0.0
-
   The AIRBDS metric is designed to assess the AI-readiness of a dataset. It consists of a series of binary questions, organised into four Scopes for convenience of assessment. Answer each question 'Yes' or 'No'. Questions are weighted, with three categories: Critical, Important, or Optional. When all questions are answered, the dataset will be given a final grade: Gold, Silver, Bronze, or Caution. Critical questions are the main determinant of the overall grade.
 
   The metric is designed to be agnostic to domain, modality, and application. The general philosophy is that a dataset should be accompanied by enough information to allow a researcher to assess whether and how they could use it for their own purposes. In some cases, domain-specific knowledge will be helpful in making assessments – for example, in determining domain appropriateness.
@@ -64,27 +62,24 @@ grade_points:
   Important: 5
   Optional: 2
 
-# Grading thresholds, highest grade first. A dataset earns the highest grade for
-# which every requirement holds: the proportion of "Yes" answers within each
-# grade category must be at least min_proportion_yes (compared with >=), and the
-# total score must be at least min_score. The final entry is the floor (all-zero
-# requirements). Editing these values re-grades without any code change.
+# Grading thresholds, highest grade first. A dataset earns the highest grade
+# whose min_score its total score reaches (compared with >=); the final entry is
+# the floor (min_score 0). Grading is by total score alone. The per-category
+# proportions in the source sheet ("Threshold calculation proportions") are the
+# author's working for deriving these thresholds, not a scoring rule, so they are
+# not part of the metric. Editing a min_score re-grades without any code change.
 grading:
   - name: Gold
-    description: "Passes all Critical and Important questions, plus at least 50% Optional (or equivalent)"
-    min_proportion_yes: { Critical: 1.0, Important: 1.0, Optional: 0.5 }
+    description: "Passes all Critical and Important, plus at least 50% Optional (or equivalent)"
     min_score: 776
   - name: Silver
-    description: "Passes all Critical plus at least 50% of Important questions (or equivalent)"
-    min_proportion_yes: { Critical: 1.0, Important: 0.5, Optional: 0.0 }
+    description: "Passes all Critical plus at least 50% of Important (or equivalent including scores from Optional)"
     min_score: 745
   - name: Bronze
     description: "Passes most Critical questions (all but one)"
-    min_proportion_yes: { Critical: 0.8888888889, Important: 0.0, Optional: 0.0 }
     min_score: 640
   - name: Caution
     description: "May have serious issues"
-    min_proportion_yes: { Critical: 0.0, Important: 0.0, Optional: 0.0 }
     min_score: 0
 
 # Top-level groupings of the questions.
