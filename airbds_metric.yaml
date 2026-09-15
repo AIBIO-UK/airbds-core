@@ -1,5 +1,5 @@
 # =============================================================================
-# AIRBDS AI-Readiness Dataset Scoring Metric — v1.0.1
+# AIRBDS AI-Readiness Dataset Scoring Metric — v1.0.2
 # AI-Ready Bioscience Datasets Working Group (AIRBDS), AIBIO-UK
 # https://aibio.ac.uk/about/working-groups/airbds/
 # License: CC-BY-4.0
@@ -23,11 +23,11 @@
 # `guidance` field explains how each question should be answered; it is guidance
 # for humans/LLMs.
 
-# Source: https://docs.google.com/spreadsheets/d/1l9FVM09YkHAmy6XzqGiSPutKdJnk0WD-EwZE8GXu6TY/edit
-# Source content sha256: 52c2cfe074176d6774e3e435da01ae572355c9e314521e5798e4c57963e7df18
+# Source: https://docs.google.com/spreadsheets/d/1_ZO89HEnsqaxs7HTjnDD7hZR_55K0DlisWZ5vhuyj1M/edit
+# Source content sha256: dd236cc2760df20348ac91548bff0943b01254be015645d393950f607801da3a
 
 metric_name: "AIRBDS AI-Readiness Dataset Scoring Metric"
-schema_version: "1.0.1"
+schema_version: "1.0.2"
 release_date: "2026"
 license: "CC-BY-4.0"
 repository: "https://github.com/AIBIO-UK/airbds-core"
@@ -52,7 +52,7 @@ instructions: |
 
   Datasets behind an access-controlled approval process, or held in a trusted research environment, are out of scope for this metric, due to the difficulty of producing accurate ratings.
 
-  Review the Notes field for guidance and examples for specific questions.
+  At least a sample of the dataset should be downloaded for testing during this assessment. Review the Notes field for guidance and examples for specific questions.
 
 # Full points awarded for a question when its answer is "Yes", keyed by the
 # question's grade. A "No" answer always scores 0. A question's score is
