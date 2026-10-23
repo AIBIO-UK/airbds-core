@@ -1,5 +1,5 @@
 # =============================================================================
-# AIRBDS AI-Readiness Dataset Scoring Metric — v1.0.2
+# AIRBDS AI-Readiness Dataset Scoring Metric — v1.1.0
 # AI-Ready Bioscience Datasets Working Group (AIRBDS), AIBIO-UK
 # https://aibio.ac.uk/about/working-groups/airbds/
 # License: CC-BY-4.0
@@ -23,11 +23,11 @@
 # `guidance` field explains how each question should be answered; it is guidance
 # for humans/LLMs.
 
-# Source: https://docs.google.com/spreadsheets/d/1_ZO89HEnsqaxs7HTjnDD7hZR_55K0DlisWZ5vhuyj1M/edit
-# Source content sha256: dd236cc2760df20348ac91548bff0943b01254be015645d393950f607801da3a
+# Source: https://docs.google.com/spreadsheets/d/1tQx6LI20Wt0g0Agvsd5tmC5VZf3LjLJXDcxzfPWVdO8/edit
+# Source content sha256: b36b9027e436a682d277eb5684e610e93a06eaedf53c64e5bcfb3ba2c4931277
 
 metric_name: "AIRBDS AI-Readiness Dataset Scoring Metric"
-schema_version: "1.0.2"
+schema_version: "1.1.0"
 release_date: "2026"
 license: "CC-BY-4.0"
 repository: "https://github.com/AIBIO-UK/airbds-core"
@@ -117,7 +117,7 @@ questions:
     scope: Infrastructure
     grade: Optional
     question: "Does the dataset include a mechanism for verifying its integrity?"
-    guidance: "For a direct download or cloud container, mark yes if each file or download has a checksum or cryptographic hash (e.g. MD5, SHA-256). If the dataset is served via an API over HTTPS/TLS, mark this \"Yes\" (the transit protocol has built-in integrity checks covering delivery)"
+    guidance: "Transfer protocols with buit-in integrity checks pass. That includes almost all APIs, including HTTPS/TLS, and HF/XET (HuggingFace protocol). For a direct download or cloud container, mark \"Yes\" only if each file or download has a checksum or cryptographic hash (e.g. MD5, SHA-256). Mark \"No\" for FTP unless hashes are available. Mark \"Yes\" for SFTP."
     answer: { type: boolean, options: ["Yes", "No"] }
   ABC-04:
     scope: Infrastructure
@@ -171,7 +171,7 @@ questions:
     scope: Metadata
     grade: Critical
     question: "Does the downloadable metadata include the identifier of the dataset?"
-    guidance: "Mark \"Yes\" if the dataset has a unique identifier that appears in the metadata that travels with the data – i.e. in a downloadable or packaged metadata record, embedded in the data files themselves, or included in the API response – so that a detached copy of the dataset remains identifiable. An identifier shown only on the repository landing page, and not included in any downloadable metadata or in the data itself, is \"No\". A URL does not qualify as a unique identifier."
+    guidance: "\"Downloadable metadata\" is data that is included automatically with the download, as part of an API response header, or served by the repository as metadata. Mark \"Yes\" if the dataset has a unique identifier that appears in the metadata that travels with the data, so that a detached copy of the dataset remains identifiable. An identifier shown only on the repository landing page, and not included in any downloadable metadata or in the data itself, is \"No\". A URL does not qualify as a unique identifier. A study ID or sample ID in combination with a source repository is acceptable."
     answer: { type: boolean, options: ["Yes", "No"] }
   ABC-13:
     scope: Metadata
@@ -183,7 +183,7 @@ questions:
     scope: Metadata
     grade: Important
     question: "Are transformation and preprocessing steps documented well enough to reproduce them?"
-    guidance: "Mark \"Yes\" if the data is raw and unprocessed and this is clearly stated, or if the steps are documented in enough detail to reproduce them, either as runnable code in a repository, or a step-by-step written description including the tools and parameters used. A high-level mention without specifics (e.g. \"data were normalised\"), or no mention at all, should be marked \"No\"."
+    guidance: "Mark \"Yes\" if the data is raw and unprocessed and this is clearly stated, or if the steps are documented in enough detail to reproduce them, either as runnable code in a repository, or a step-by-step written description including the tools and parameters used. A high-level mention without specifics (e.g. \"data were normalised\"), or no mention at all, should be marked \"No\". Runnable code is sufficient, even if the code is not well documented."
     answer: { type: boolean, options: ["Yes", "No"] }
   ABC-15:
     scope: Metadata
@@ -207,7 +207,7 @@ questions:
     scope: Content
     grade: Important
     question: "Does the dataset include all expected records and content?"
-    guidance: "The expected content is defined by the metadata. If the dataset has no metadata, or the metadata does not specify what files and records should be expected, mark this question \"No\"."
+    guidance: "The expected content is defined by the metadata. If the dataset has no file manifest and no concrete way of determining what files and records should be expected, mark this question \"No\"."
     answer: { type: boolean, options: ["Yes", "No"] }
   ABC-19:
     scope: Content
@@ -237,21 +237,21 @@ questions:
     scope: Ethics
     grade: Critical
     question: "If the dataset contains data from animal or human subjects, is an ethical assessment that covers acquisition present in the metadata or a linked clinical trial record?"
-    guidance: "If the dataset contains no human or animal data, mark \"Yes\". For datasets with human or animal subjects, mark \"Yes\" if the metadata (or a clearly linked, registered clinical-trial or ethics record) documents that the data acquisition underwent ethical review from an ethics committee or IRB. A statement found only in an accompanying journal article does not count. Mark \"No\" if no such documentation is present."
+    guidance: "If the dataset contains no human or animal data, mark \"Yes\". Immortalised cell lines, reference materials, and non-invasive observations of animals pass. Secondary datasets pass if they have clear provenance; otherwise they should be assessed as below. For datasets with human or animal subjects, mark \"Yes\" if the metadata (or a clearly linked, registered clinical-trial or ethics record) documents that the data acquisition underwent ethical review from an ethics committee or IRB. A statement found only in an accompanying journal article does not count. Mark \"No\" if no such documentation is present."
     answer: { type: boolean, options: ["Yes", "No"] }
     not_applicable_default: "Yes"
   ABC-24:
     scope: Ethics
     grade: Critical
     question: "If the dataset contains data from human subjects, is data management with respect to privacy documented in the metadata or a linked clinical trial record?"
-    guidance: "If the dataset contains no human data, mark \"Yes\". For datasets with human subjects, mark \"Yes\" if the metadata (or a clearly linked, registered clinical-trial or ethics record) states the data's de-identification or privacy status – e.g. \"anonymised\", \"de-identified\", \"limited data set\", \"non-PHI\". Mark \"No\" if no de-identification or privacy-handling status is stated."
+    guidance: "If the dataset contains no human data, mark \"Yes\". Immortalised cell lines, reference materials, and non-invasive observations of animals pass. Secondary datasets pass if they have clear provenance; otherwise they should be assessed as below. For datasets with human subjects, mark \"Yes\" if the metadata (or a clearly linked, registered clinical-trial or ethics record) states the data's de-identification or privacy status – e.g. \"anonymised\", \"de-identified\", \"limited data set\", \"non-PHI\". Mark \"No\" if no de-identification or privacy-handling status is stated."
     answer: { type: boolean, options: ["Yes", "No"] }
     not_applicable_default: "Yes"
   ABC-25:
     scope: Ethics
     grade: Critical
     question: "If the dataset contains data from human subjects, is the legal basis for data collection and processing documented in the metadata or a linked clinical trial record?"
-    guidance: "Mark \"Yes\" if the metadata (or a clearly linked, registered clinical-trial or ethics record) documents the legal basis for collecting and processing the data – e.g. informed consent, or another lawful basis under the applicable regime such as GDPR or HIPAA. If the dataset contains no human data, mark the question \"Yes\". If there is no record of consent and no mention of legal basis, mark this question \"No\"."
+    guidance: "If the dataset contains no human data, mark \"Yes\". Immortalised cell lines, reference materials, and non-invasive observations of animals pass. Secondary datasets pass if they have clear provenance; otherwise they should be assessed as below. For datasets with human subjects, mark \"Yes\" if the metadata (or a clearly linked, registered clinical-trial or ethics record) documents the legal basis for collecting and processing the data – e.g. informed consent, or another lawful basis under the applicable regime such as GDPR or HIPAA. If the dataset contains no human data, mark the question \"Yes\". If there is no record of consent and no mention of legal basis, mark this question \"No\"."
     answer: { type: boolean, options: ["Yes", "No"] }
     not_applicable_default: "Yes"
 
